@@ -1,0 +1,99 @@
+<div class="flex h-screen overflow-hidden bg-[var(--background-color)]">
+  <!-- Sidebar -->
+  <aside class="w-64 flex flex-col p-6 glass-panel m-4 mr-2">
+    <div class="flex items-center justify-between mb-10">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-[var(--primary-color)] flex items-center justify-center shadow-lg">
+          <i class="pi pi-bolt text-white text-xl"></i>
+        </div>
+        <h1 class="text-2xl font-bold text-dynamic tracking-tight">Vortex<span class="text-[var(--primary-color)]">Admin</span></h1>
+      </div>
+    </div>
+
+    <nav class="flex-1 flex flex-col gap-2">
+      <a routerLink="/dashboard" routerLinkActive="bg-dynamic text-dynamic shadow-sm" [routerLinkActiveOptions]="{exact: true}" class="flex items-center gap-3 px-4 py-3 rounded-xl text-dynamic-muted hover:text-dynamic hover:bg-dynamic transition-all">
+        <i class="pi pi-home"></i>
+        <span class="font-medium">{{ settingsStore.language() === 'pt' ? 'Painel' : 'Dashboard' }}</span>
+      </a>
+      <a routerLink="/users" routerLinkActive="bg-dynamic text-dynamic shadow-sm" class="flex items-center gap-3 px-4 py-3 rounded-xl text-dynamic-muted hover:text-dynamic hover:bg-dynamic transition-all">
+        <i class="pi pi-users"></i>
+        <span class="font-medium">{{ settingsStore.language() === 'pt' ? 'Usuários' : 'Users' }}</span>
+      </a>
+      <a href="#" (click)="prevent($event)" class="flex items-center gap-3 px-4 py-3 rounded-xl text-dynamic-muted hover:text-dynamic hover:bg-dynamic transition-all opacity-50 cursor-not-allowed" title="Em breve">
+        <i class="pi pi-box"></i>
+        <span class="font-medium">{{ settingsStore.language() === 'pt' ? 'Produtos (Breve)' : 'Products (Soon)' }}</span>
+      </a>
+      <a href="#" (click)="prevent($event)" class="flex items-center gap-3 px-4 py-3 rounded-xl text-dynamic-muted hover:text-dynamic hover:bg-dynamic transition-all opacity-50 cursor-not-allowed" title="Em breve">
+        <i class="pi pi-chart-line"></i>
+        <span class="font-medium">{{ settingsStore.language() === 'pt' ? 'Análises (Breve)' : 'Analytics (Soon)' }}</span>
+      </a>
+    </nav>
+
+    <div class="mt-auto flex flex-col gap-2">
+      <button (click)="settingsStore.toggleInfoModal()" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-dynamic border border-dynamic text-dynamic hover:bg-[var(--hover-color)] transition-colors text-left w-full">
+        <i class="pi pi-info-circle"></i> 
+        <span class="font-medium">{{ settingsStore.language() === 'pt' ? 'Sobre' : 'About' }}</span>
+      </button>
+      
+      <button (click)="settingsStore.toggleSettingsModal()" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-dynamic border border-dynamic text-dynamic hover:bg-[var(--hover-color)] transition-colors text-left w-full">
+        <i class="pi pi-cog"></i> 
+        <span class="font-medium">{{ settingsStore.language() === 'pt' ? 'Configurações' : 'Settings' }}</span>
+      </button>
+
+      <div class="flex items-center gap-3 px-4 py-3 rounded-xl bg-dynamic border border-dynamic mt-2">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold">
+          {{ authStore.user()?.name?.charAt(0) || 'A' }}
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-medium text-dynamic truncate">{{ authStore.user()?.name || 'Admin User' }}</p>
+          <p class="text-xs text-dynamic-muted truncate">{{ authStore.user()?.email || 'admin@vortex.com' }}</p>
+        </div>
+        <button (click)="authStore.logout()" class="text-dynamic-muted hover:text-red-400 transition-colors">
+          <i class="pi pi-sign-out"></i>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 overflow-y-auto p-4 pl-2">
+    <div class="h-full rounded-2xl">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>
+
+<!-- Info Modal -->
+<p-dialog [header]="settingsStore.language() === 'pt' ? 'Sobre a Plataforma' : 'About the Platform'" [visible]="settingsStore.isInfoModalOpen()" (visibleChange)="settingsStore.toggleInfoModal()" [modal]="true" [style]="{ width: '40vw', minWidth: '400px' }" [draggable]="false" [resizable]="false">
+  <div class="flex flex-col gap-4 text-dynamic">
+    <p>
+      {{ settingsStore.language() === 'pt' ? 'O VortexAdmin é um painel corporativo desenvolvido em Angular 18 (Standalone Components). O objetivo desta aplicação é demonstrar capacidades avançadas para softwares B2B e institucionais.' : 'VortexAdmin is an enterprise dashboard developed with Angular 18 (Standalone Components). The goal of this application is to demonstrate advanced capabilities for B2B and institutional software.' }}
+    </p>
+    <ul class="list-disc pl-5 mt-2 space-y-2">
+      <li><strong>NgRx SignalStore:</strong> {{ settingsStore.language() === 'pt' ? 'Gerenciamento de estado reativo e moderno.' : 'Modern reactive state management.' }}</li>
+      <li><strong>Web Workers:</strong> {{ settingsStore.language() === 'pt' ? 'Processamento multithread pesado garantindo que a tela nunca congele mesmo ao exibir milhares de pontos em gráficos.' : 'Heavy multithread processing ensuring the UI never freezes even when rendering thousands of data points.' }}</li>
+      <li><strong>Glassmorphism & PrimeNG:</strong> {{ settingsStore.language() === 'pt' ? 'Componentes ricos com estilo personalizado em Tailwind CSS com adaptabilidade de temas Dark/Light.' : 'Rich components with custom Tailwind CSS styling supporting Dark/Light themes.' }}</li>
+    </ul>
+    <div class="flex justify-end mt-4">
+      <p-button [label]="settingsStore.language() === 'pt' ? 'Fechar' : 'Close'" (click)="settingsStore.toggleInfoModal()"></p-button>
+    </div>
+  </div>
+</p-dialog>
+
+<!-- Settings Modal -->
+<p-dialog [header]="settingsStore.language() === 'pt' ? 'Configurações' : 'Settings'" [visible]="settingsStore.isSettingsModalOpen()" (visibleChange)="settingsStore.toggleSettingsModal()" [modal]="true" [style]="{ width: '30vw', minWidth: '350px' }" [draggable]="false" [resizable]="false">
+  <div class="flex flex-col gap-6 py-4">
+    <div class="flex flex-col gap-2">
+      <label class="font-medium text-dynamic">{{ settingsStore.language() === 'pt' ? 'Idioma' : 'Language' }}</label>
+      <p-dropdown [options]="languageOptions" [ngModel]="settingsStore.language()" (onChange)="onLanguageChange($event)" optionLabel="label" optionValue="value" styleClass="w-full"></p-dropdown>
+    </div>
+    
+    <div class="flex flex-col gap-2">
+      <label class="font-medium text-dynamic">{{ settingsStore.language() === 'pt' ? 'Tema' : 'Theme' }}</label>
+      <p-dropdown [options]="themeOptions" [ngModel]="settingsStore.theme()" (onChange)="onThemeChange($event)" optionLabel="label" optionValue="value" styleClass="w-full"></p-dropdown>
+    </div>
+  </div>
+  <div class="flex justify-end mt-4">
+    <p-button [label]="settingsStore.language() === 'pt' ? 'Salvar & Fechar' : 'Save & Close'" (click)="settingsStore.toggleSettingsModal()"></p-button>
+  </div>
+</p-dialog>

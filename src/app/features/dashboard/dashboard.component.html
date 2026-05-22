@@ -1,0 +1,51 @@
+<div class="flex flex-col gap-6">
+  <!-- Header -->
+  <div class="flex items-center justify-between">
+    <div>
+      <h2 class="text-3xl font-bold text-dynamic">{{ settingsStore.language() === 'pt' ? 'Visão Geral' : 'Dashboard Overview' }}</h2>
+      <p class="text-dynamic-muted mt-1">{{ settingsStore.language() === 'pt' ? 'Métricas em tempo real via Web Worker (500k+ registros)' : 'Real-time metrics parsed by Web Worker (500k+ records)' }}</p>
+    </div>
+    
+    <button (click)="metricsStore.loadData()" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-medium transition-colors shadow-lg shadow-blue-500/30 flex items-center gap-2">
+      <i class="pi" [ngClass]="{'pi-spin pi-spinner': metricsStore.isLoading(), 'pi-refresh': !metricsStore.isLoading()}"></i>
+      {{ settingsStore.language() === 'pt' ? 'Recarregar' : 'Reload Data' }}
+    </button>
+  </div>
+
+  <!-- Metric Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="glass-panel p-6 flex flex-col gap-2">
+      <span class="text-dynamic-muted text-sm font-medium uppercase tracking-wider">{{ settingsStore.language() === 'pt' ? 'Total de Usuários' : 'Total Users' }}</span>
+      <span class="text-3xl font-bold text-dynamic">12,405</span>
+      <span class="text-emerald-400 text-sm flex items-center gap-1 mt-1"><i class="pi pi-arrow-up text-xs"></i> 12% this month</span>
+    </div>
+    <div class="glass-panel p-6 flex flex-col gap-2">
+      <span class="text-dynamic-muted text-sm font-medium uppercase tracking-wider">{{ settingsStore.language() === 'pt' ? 'Sessões Ativas' : 'Active Sessions' }}</span>
+      <span class="text-3xl font-bold text-dynamic">1,204</span>
+      <span class="text-emerald-400 text-sm flex items-center gap-1 mt-1"><i class="pi pi-arrow-up text-xs"></i> 5% this hour</span>
+    </div>
+    <div class="glass-panel p-6 flex flex-col gap-2">
+      <span class="text-dynamic-muted text-sm font-medium uppercase tracking-wider">{{ settingsStore.language() === 'pt' ? 'Pontos Processados' : 'Data Points Processed' }}</span>
+      <span class="text-3xl font-bold text-dynamic">{{ metricsStore.data().length | number }}</span>
+      <span class="text-blue-400 text-sm flex items-center gap-1 mt-1"><i class="pi pi-check-circle text-xs"></i> {{ settingsStore.language() === 'pt' ? 'Fora da thread via Web Worker' : 'Off-thread via Web Worker' }}</span>
+    </div>
+  </div>
+
+  <!-- Chart Area -->
+  <div class="glass-panel p-6 min-h-[500px] flex flex-col">
+    <h3 class="text-xl font-bold text-dynamic mb-6">{{ settingsStore.language() === 'pt' ? 'Trajetória de Performance' : 'Performance Trajectory' }}</h3>
+    
+    <div *ngIf="metricsStore.isLoading()" class="flex-1 flex flex-col items-center justify-center text-blue-400">
+      <i class="pi pi-spin pi-spinner text-4xl mb-4"></i>
+      <p>{{ settingsStore.language() === 'pt' ? 'Processando meio milhão de registros no Web Worker...' : 'Parsing half a million records in Web Worker...' }}</p>
+    </div>
+    
+    <div *ngIf="!metricsStore.isLoading() && metricsStore.data().length > 0" class="flex-1 relative">
+      <p-chart type="line" [data]="chartData" [options]="chartOptions" height="400px"></p-chart>
+    </div>
+    
+    <div *ngIf="!metricsStore.isLoading() && metricsStore.error()" class="flex-1 flex items-center justify-center text-red-400">
+      <p><i class="pi pi-exclamation-triangle mr-2"></i> {{ metricsStore.error() }}</p>
+    </div>
+  </div>
+</div>
