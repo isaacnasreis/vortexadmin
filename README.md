@@ -1,82 +1,27 @@
-# VortexAdmin
+# Vortexadmin
 
-## 🌀 Sobre o projeto
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.21.
 
-VortexAdmin é um **painel administrativo moderno e interativo**, desenvolvido com **Vue 3 + Vite + TypeScript**. O objetivo é fornecer uma plataforma eficiente para gerenciar usuários, produtos e métricas com gráficos interativos e suporte a temas **Dark/Light**.
+## Development server
 
-O projeto segue boas práticas de **acessibilidade, SEO e performance**, utilizando ferramentas modernas para otimizar o desenvolvimento e garantir a melhor experiência do usuário.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
----
+## Code scaffolding
 
-## 🚀 Tecnologias Utilizadas
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-- **Frontend**: Vue 3 + TypeScript + Vite
-- **Gerenciamento de estado**: Pinia
-- **Roteamento**: Vue Router
-- **Estilização**: TailwindCSS
-- **Gráficos**: Chart.js / Recharts
-- **Autenticação**: Firebase/Auth0
-- **Testes**:
-  - **Unitários**: Vitest
-  - **End-to-End (E2E)**: Cypress
-  - **Componentes**: Vue Test Utils + Jest
+## Build
 
----
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## 📌 Funcionalidades Principais
+## Running unit tests
 
-✅ **Autenticação** com Firebase/Auth0 (Login/Logout)
-✅ **CRUD completo** para Usuários e Produtos
-✅ **Gráficos interativos** para métricas
-✅ **Responsividade e acessibilidade (A11y)**
-✅ **Modo Dark/Light**
-✅ **Testes unitários e E2E para garantir qualidade**
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
----
+## Running end-to-end tests
 
-## 📸 Demonstração
+Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-🔗 **[Live Demo](https://vortexadmin.netlify.app/)** (hospedado na Netlify)
+## Further help
 
----
-
-## 🛠️ Como Rodar o Projeto
-
-1. Clone o repositório:
-   ```bash
-   git clone https://github.com/isaacnreis/vortexadmin.git
-   ```
-2. Acesse o diretório do projeto:
-   ```bash
-   cd vortexadmin
-   ```
-3. Instale as dependências:
-   ```bash
-   npm install
-   ```
-4. Inicie o servidor de desenvolvimento:
-   ```bash
-   npm run dev
-   ```
-
----
-
-## 🧪 Rodando os Testes
-
-### 🔹 Testes Unitários (Vitest)
-
-```bash
-npm run test
-```
-
-### 🔹 Testes End-to-End (Cypress)
-
-```bash
-npx cypress open
-```
-
----
-
-## 👨‍💻 Autor
-
-Desenvolvido por **Isaac N. Reis**. Conecte-se comigo no [LinkedIn](https://www.linkedin.com/in/isaacnreis/)! 🚀
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
