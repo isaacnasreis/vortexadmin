@@ -101,7 +101,12 @@ body {
 .p-dialog .p-dialog-header, .p-dialog .p-dialog-content, .p-dialog .p-dialog-footer {
   background-color: transparent !important;
   color: var(--text-color) !important;
+  padding: 1.5rem !important;
 }
 .p-dialog .p-dialog-header {
   border-bottom: 1px solid var(--border-color) !important;
+  padding-bottom: 1.25rem !important;
+}
+.p-dialog .p-dialog-content {
+  padding-top: 1.5rem !important;
 }
